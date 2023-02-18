@@ -44,8 +44,13 @@ main {
 }
 
 .square {
-    /* height: 100px; */
-    /* width: 100px; */
+    height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    color: #80C4B7;
 }
 
 .square:nth-child(2),

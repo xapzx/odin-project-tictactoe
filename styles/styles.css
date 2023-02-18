@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+}
+
+.container {
+    height: 100vh;
+    background-color: #EDCBD2;
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.sidebar {
+    background-color: #80C4B7;
+}
+
+.sidebar > h1 {
+    margin: 0;
+    padding: 24px 12px;
+    color: #E3856B;
+}

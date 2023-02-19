@@ -20,13 +20,15 @@ const gameBoard = (function() {
         _board[index] = _mark;
     }
 
+    // Get value of a square
     const getSquare = (index) => _board[index];
 
+    // Clear the game board
     const clearBoard = () => {
-        const _boardHTML = Array.from(document.querySelectorAll('.square'));
+        const squaresHTML = Array.from(document.querySelectorAll('.square'));
         for(let i = 0; i < 9; i++) {
             _board[i] = null;
-            _boardHTML[i].innerText = "";
+            squaresHTML[i].innerText = "";
         }
     }
 
@@ -57,9 +59,8 @@ const gameController = (function() {
     const _boardHTML = Array.from(document.querySelectorAll('.square'));
     let _round = 1;
 
+    // Function to control player's selection of squares
     const playerTurn = (index) => {
-        if(_round === 9) console.log("DRAW");
-
         if(gameBoard.getSquare(index) !== null) {
             console.log('Taken.');
         } else {
@@ -67,7 +68,9 @@ const gameController = (function() {
         }
         
         if(_checkWin()) {
-            console.log(_player[(round - 1) % 2].getMark() + " is the winner.");
+            console.log(_players[(_round - 1) % 2].getMark() + " is the winner.");
+        } else if(_round === 10) {
+            console.log("DRAW");
         }
     }
 
@@ -84,7 +87,7 @@ const gameController = (function() {
             [2, 4, 6],
         ];
         
-        const currentPlayerMark = _players[(_round - 1) % 2].getMark;
+        const currentPlayerMark = _players[(_round - 1) % 2].getMark();
         for(const combo of winCombinations) {
             if(gameBoard.getSquare(combo[0]) === currentPlayerMark && gameBoard.getSquare(combo[1]) === currentPlayerMark && gameBoard.getSquare(combo[2]) === currentPlayerMark) {
                 return true;
@@ -98,6 +101,8 @@ const gameController = (function() {
             _boardHTML[i].addEventListener('click', playerTurn.bind(_boardHTML[i], i));
         }
     })();
+})();
 
-    return {_checkWin}
+const displayController = (function() {
+    
 })();

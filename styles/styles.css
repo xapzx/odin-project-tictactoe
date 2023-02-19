@@ -1,3 +1,9 @@
+:root {
+    --bg: #EDCBD2;
+    --color: #80C4B7;
+    --font: #E3856B;
+}
+
 html {
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
@@ -13,28 +19,28 @@ body {
 
 .container {
     height: 100vh;
-    background-color: #EDCBD2;
+    background-color: var(--bg, #EDCBD2);
     display: grid;
     grid-template-columns: auto 1fr;
 }
 
 .sidebar {
-    background-color: #80C4B7;
-    border-right: 2px solid #E3856B;
+    background-color: var(--color, #80C4B7);
+    border-right: 2px solid var(--font, #E3856B);
 }
 
 .sidebar > h1 {
     text-align: center;
     margin: 0;
-    padding: 24px 12px;
-    color: #E3856B;
+    padding: 1.5rem 1rem;
+    color: var(--font, #E3856B);;
 }
 
 main {
     display: grid;
     justify-content: center;
     align-items: center;
-    /* padding: 24px; */
+    padding: 1rem;
 }
 
 .main-container {
@@ -58,29 +64,68 @@ main {
     justify-content: center;
     align-items: center;
     font-size: 60px;
-    color: #80C4B7;
+    color: var(--color, #80C4B7);
 }
 
 .square:nth-child(2),
 .square:nth-child(5),
 .square:nth-child(8) {
-    border-left: 2px solid #E3856B;
-    border-right: 2px solid #E3856B;
+    border-left: 2px solid var(--font, #E3856B);;
+    border-right: 2px solid var(--font, #E3856B);;
 }
 
 .square:nth-child(4),
 .square:nth-child(5),
 .square:nth-child(6) {
-    border-top: 2px solid #E3856B;
-    border-bottom: 2px solid #E3856B;
+    border-top: 2px solid var(--font, #E3856B);;
+    border-bottom: 2px solid var(--font, #E3856B);;
+}
+
+/* Button gooey hover effect */
+/* https://codepen.io/ines/pen/oeZdYv */
+/* https://css-tricks.com/gooey-effect/ */
+.btn-wrapper {
+    filter: url('#goo');
+    text-align: center;
 }
 
 .restart-btn {
-    background-color: #80C4B7;
+    background-color: var(--color, #80C4B7);
     border: none;
     height: 2rem;
-    border-radius: 24px;
+    border-radius: 1rem;
     color: #E3856B;
     font-weight: bold;
     font-size: 1.3rem;
+    position: relative;
+    min-width: 15rem;
+}
+
+.restart-btn:before,
+.restart-btn:after {
+    width: 4.4em;
+    height: 2.95em;
+    position: absolute;
+    content: "";
+    /* display: inline-block; */
+    background: var(--color, #80C4B7);
+    border-radius: 50%;
+    transition: transform 1s ease;
+    transform: scale(0);
+    z-index: -1;
+}
+
+.restart-btn:before {
+    top: -25%;
+    left: 20%;
+}
+
+.restart-btn:after {
+    bottom: -25%;
+    right: 20%;
+}
+
+.restart-btn:hover:before,
+.restart-btn:hover:after {
+    transform: none;
 }

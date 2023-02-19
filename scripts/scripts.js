@@ -1,14 +1,14 @@
 // Gameboard Module
 const gameBoard = (function() {
-    const _board = new Array(9);
+    const _board = new Array(9).fill(null);
 
     // Renders the game board
     const _render = (() => {
-        const boardHtml = document.querySelector('.game-container');
+        const boardHTML = document.querySelector('.game-container');
         for(let i = 0; i < 9; i++) {
             const square = document.createElement('div');
             square.classList.add('square');
-            boardHtml.appendChild(square);
+            boardHTML.appendChild(square);
         }
     })();
     
@@ -20,6 +20,8 @@ const gameBoard = (function() {
         _board[index] = _mark;
     }
 
+    const getSquare = (index) => _board[index];
+
     const clearBoard = () => {
         const _boardHTML = Array.from(document.querySelectorAll('.square'));
         for(let i = 0; i < 9; i++) {
@@ -30,7 +32,8 @@ const gameBoard = (function() {
 
     return {
         setSquare,
-        clearBoard
+        clearBoard,
+        getSquare
     }
 })();
 
@@ -57,7 +60,36 @@ const gameController = (function() {
     const playerTurn = (index) => {
         if(_round === 9) console.log("DRAW");
 
-        gameBoard.setSquare(index, _players[_round++ % 2]);
+        if(gameBoard.getSquare(index) !== null) {
+            console.log('Taken.');
+        } else {
+            gameBoard.setSquare(index, _players[_round++ % 2]);
+        }
+        
+        if(_checkWin()) {
+            console.log(_player[(round - 1) % 2].getMark() + " is the winner.");
+        }
+    }
+
+    // Check if there is a winning combination
+    const _checkWin = () => {
+        const winCombinations = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+        
+        const currentPlayerMark = _players[(_round - 1) % 2].getMark;
+        for(const combo of winCombinations) {
+            if(gameBoard.getSquare(combo[0]) === currentPlayerMark && gameBoard.getSquare(combo[1]) === currentPlayerMark && gameBoard.getSquare(combo[2]) === currentPlayerMark) {
+                return true;
+            }
+        }
     }
 
     // Initialise click event for each square
@@ -66,4 +98,6 @@ const gameController = (function() {
             _boardHTML[i].addEventListener('click', playerTurn.bind(_boardHTML[i], i));
         }
     })();
+
+    return {_checkWin}
 })();

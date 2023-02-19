@@ -60,7 +60,7 @@ const gameController = (function() {
     let _round = 1;
 
     // Function to control player's selection of squares
-    const playerTurn = (index) => {
+    const _playerTurn = (index) => {
         if(gameBoard.getSquare(index) !== null) {
             console.log('Taken.');
         } else {
@@ -95,14 +95,22 @@ const gameController = (function() {
         }
     }
 
+    // Restart the game, clear the game board
+    const _restartGame = () => {
+        _round = 1;
+        gameBoard.clearBoard();
+    }
+
     // Initialise click event for each square
     const _init = (() => {
         for(let i = 0; i < _boardHTML.length; i++) {
-            _boardHTML[i].addEventListener('click', playerTurn.bind(_boardHTML[i], i));
+            _boardHTML[i].addEventListener('click', _playerTurn.bind(_boardHTML[i], i));
         }
+
+        document.querySelector('.restart-btn').addEventListener('click', _restartGame);
     })();
 })();
 
 const displayController = (function() {
-    
+
 })();

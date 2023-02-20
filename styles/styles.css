@@ -50,6 +50,23 @@ main {
     gap: 36px;
 }
 
+.player-turn {
+    text-align: center;
+    color: var(--font);
+}
+
+.player-turn > h1, .player-turn > p {
+    margin: 0;
+}
+
+.selection-err {
+    visibility: hidden;
+}
+
+.wrong-selection {
+    visibility: visible;
+}
+
 .game-container {
     width: 300px;
     height: 300px;
@@ -102,7 +119,9 @@ main {
 }
 
 .restart-btn:before,
-.restart-btn:after {
+.restart-btn:after,
+.modal-button:before,
+.modal-button:after {
     width: 4.4em;
     height: 2.95em;
     position: absolute;
@@ -115,17 +134,90 @@ main {
     z-index: -1;
 }
 
-.restart-btn:before {
+.restart-btn:before,
+.modal-button:before {
     top: -25%;
     left: 20%;
 }
 
-.restart-btn:after {
+.restart-btn:after,
+.modal-button:after {
     bottom: -25%;
     right: 20%;
 }
 
 .restart-btn:hover:before,
-.restart-btn:hover:after {
+.restart-btn:hover:after,
+.modal-button:hover:before,
+.modal-button:hover:after {
     transform: none;
+}
+
+/* Declare winner Modal pop-up and blur background */
+/* https://codeconvey.com/css-modal-blur-background/ */
+.container {
+    -webkit-filter: blur(0);
+            filter: blur(0);
+    opacity: 1;
+    -webkit-transition: opacity 500ms ease, -webkit-filter 500ms ease;
+    transition: opacity 500ms ease, -webkit-filter 500ms ease;
+    transition: filter 500ms ease, opacity 500ms ease;
+    transition: filter 500ms ease, opacity 500ms ease, -webkit-filter 500ms ease;
+}
+
+.modal--active.container {
+    -webkit-filter: blur(8px);
+            filter: blur(8px);
+    opacity: 1;
+}
+
+.modal-wrapper {
+    position: fixed;
+    top: 100vh;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    -webkit-filter: blur(15px);
+            filter: blur(15px);
+    opacity: .01;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+    overflow: auto;
+    -webkit-transition: opacity 300ms ease 200ms, -webkit-transform 300ms ease 200ms, -webkit-filter 300ms ease 200ms;
+    transition: opacity 300ms ease 200ms, -webkit-transform 300ms ease 200ms, -webkit-filter 300ms ease 200ms;
+    transition: transform 300ms ease 200ms, filter 300ms ease 200ms, opacity 300ms ease 200ms;
+    transition: transform 300ms ease 200ms, filter 300ms ease 200ms, opacity 300ms ease 200ms, -webkit-transform 300ms ease 200ms, -webkit-filter 300ms ease 200ms;
+}
+
+.modal-wrapper.modal--active {
+    top: 300px;
+    margin-top: -150px;
+    -webkit-filter: blur(0);
+            filter: blur(0);
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+}
+
+.modal {
+    padding: 80px 20px 20px;
+    overflow: hidden;
+    height: 400px;
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.modal-title {
+    font-size: 3.5rem;
+    color: var(--font);
+}
+
+.modal-button {
+    background: var(--color);
+    color: var(--font);
+    border: none;
+    border-radius: 1rem;
+    padding: 1rem 1.5rem;
+    font-size: 2rem;
 }

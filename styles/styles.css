@@ -200,10 +200,10 @@ main {
 }
 
 .modal {
-    padding: 80px 20px 20px;
+    padding-top: 80px;
     overflow: hidden;
     height: 400px;
-    width: 600px;
+    width: 400px;
     margin: 0 auto;
     text-align: center;
 }
